@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="card" *ngIf="hotel">
+    <div class="card-header text-wihite bg-info">
+      {{ hotel.hotelName | uppercase }}
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <p class="col-md-4">Nom: </p>
+            <p class="col-md-8">{{hotel.hotelName}}</p>
+          </div>
+
+          <div class="row">
+            <p class="col-md-4">Description:</p>
+            <p class="col-md-8">{{hotel.hotelDescription}}</p>
+          </div>
+
+          <div class="row">
+            <p class="col-md-4">Prix:</p>
+            <p class="col-md-8">{{hotel.hotelPrice | currency: "EUR":"symbol":"1-2-2":"fr"}}</p>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">Note:</div>
+            <div class="col-md-8">
+              <app-star-rating [rating]="hotel.rating"></app-star-rating>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <img class="card-img-top" [src]="hotel.hotelImageUrl" [title]="hotel.hotelName | uppercase"[alt]="hotel.hotelName">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-outline-info d-flex" (click)="backToList()">
+        <span class="material-icons">keyboard_arrow_left</span>
+        retour à la liste
+      </button>
+    </div>
+
+  </div>
+</div>
+

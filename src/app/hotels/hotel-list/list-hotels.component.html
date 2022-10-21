@@ -1,0 +1,42 @@
+
+  <img src="" alt="">
+  <h2 >{{ title }} </h2>
+  <button class="btn btn-primary d-flex" (click)="toggleIsNewBadge()">
+    <span class="material-icons">{{ showBadge ? "visibility_off" : "visibility" }}</span>
+    <span>{{ showBadge ? 'Cacher' : "Afficher"}} Afficher le dernier projet</span>
+  </button>
+  <div class="">
+    <div>
+      <div>
+        <span class="filter">Filtre actuel:</span>
+        <b>{{ hotelFilter }}</b>
+      </div>
+      <div>
+        <input type="text" class="" [(ngModel)]="hotelFilter">
+        <!-- <input type="text" class="" [ngModel]="hotelFilter" (ngModelChange)="hotelFilter = $event "> -->
+      </div>
+    </div>
+  </div>
+  <div class="alert" *ngIf="!! receivedRating">{{ receivedRating}}</div>
+  <h2>{{ titleHotel }}</h2>
+  <section class="contentHotels">
+    <div class="cartes-hotels" *ngFor= "let hotel of filteredHotels">
+      <div class="contenerHotel">
+        <img [src]="hotel.hotelImageUrl" [title]="hotel.hotelName | uppercase" [alt]="hotel.hotelName" class="img-project">
+        <h3>{{ hotel.hotelName }}</h3>
+        <p>{{ hotel.hotelDescription }}</p>
+
+        <div class="d-flex justify-content-between align-items-baseline">
+          <!-- <p class="card-text">{{ hotel.hotelPrice | currency: "EUR":"symbol":"1.2-2":"fr"| replaceComma }}</p> -->
+          <app-star-rating [rating]="hotel.rating" (starRatingClicked)="receiveRatingClicked($event)"></app-star-rating>
+          <span class="material-icons bg-info text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.hotelId]">
+            keyboard_arrow_right
+          </span>
+
+        </div>
+        <span class="span" *ngIf="showBadge">Nouveau</span>
+      </div>
+    </div>
+  </section>
+
+
