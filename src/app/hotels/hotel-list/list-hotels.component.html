@@ -29,6 +29,9 @@
         <div class="d-flex justify-content-between align-items-baseline">
           <!-- <p class="card-text">{{ hotel.hotelPrice | currency: "EUR":"symbol":"1.2-2":"fr"| replaceComma }}</p> -->
           <app-star-rating [rating]="hotel.rating" (starRatingClicked)="receiveRatingClicked($event)"></app-star-rating>
+          <span class="material-icons bg-primary text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.hotelId, 'edit']">
+            edit
+          </span>
           <span class="material-icons bg-info text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.hotelId]">
             keyboard_arrow_right
           </span>
