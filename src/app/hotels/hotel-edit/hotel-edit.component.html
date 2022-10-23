@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header text-white bg-info">Editer un nouvel hotel</div>
+  <div class="card-header text-white bg-info">{{pageTitle}}</div>
 
   <div class="card-body">
     <form novalidate (ngSubmit)="saveHotel()" [formGroup]="hotelForm" action="">
@@ -20,7 +20,7 @@
         <div class="form-group row mb-2">
           <label for="starRatingId" class="col-md-2 col-form-label">Evaluation (1-5)</label>
           <div class="col-md-8">
-            <input id="starRatingId" type="text" class="form-control" placeholder="evaluation(1-5)" formControlName="fstarRating">
+            <input id="starRatingId" type="text" class="form-control" placeholder="evaluation(1-5)" formControlName="starRating">
           </div>
         </div>
 

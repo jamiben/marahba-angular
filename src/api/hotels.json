@@ -1,0 +1,28 @@
+[
+  {
+    "hotelId": 1,
+    "hotelName":"Thany",
+    "hotelDescription":"lorem ipsum",
+    "hotelImageUrl":"assets/img/thany.jpg",
+    "hotelPrice":200.60,
+    "rating":2
+
+  },
+  {
+    "hotelId":2,
+    "hotelName":"Marahba",
+    "hotelDescription":"lorem ipsum",
+    "hotelImageUrl":"assets/img/marhaba.jpg",
+    "hotelPrice":300.2,
+    "rating":5
+  },
+  {
+    "hotelId":3,
+    "hotelName":"Lesehan",
+    "hotelDescription":"lorem ipsum",
+    "hotelImageUrl":"assets/img/lesehan-cahayah.png",
+    "hotelPrice":400.5,
+    "rating": 3.5
+  }
+]
+
