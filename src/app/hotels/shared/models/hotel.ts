@@ -1,10 +1,15 @@
 export interface IHotel{
-  hotelId: number;
+  id: number;
   hotelName: string;
-  hotelDescription: string;
-  hotelImageUrl: string;
+  description: string;
+  imageUrl: string;
   hotelPrice: number;
   rating: number;
 }
 
+export class Hotel Implements IHotel {
 
+  constructor{
+
+  }
+}

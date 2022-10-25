@@ -10,9 +10,10 @@ import { IHotel } from "../models/hotel";
 
 export class HotelListService {
 
-  private readonly HOTEL_API_URL = "api/hotels.json";
+  private readonly HOTEL_API_URL = "api/hotels";
 
   constructor(private http: HttpClient) {
+
   }
 
   public getHotels(): Observable<IHotel[]> {
@@ -23,17 +24,33 @@ export class HotelListService {
   }
 
   public getHotelById(id: number): Observable<IHotel>{
+    const url = `${this.HOTEL_API_URL}/${id}`;
+
     if(id === 0) {
       return of(this.getDefaultHotel());
     }
-    return this.getHotels().pipe(
-      map(hotels => hotels.find((hotel: IHotel) => hotel.hotelId === id)!)
-      );
+    return this.http.get<IHotel>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public createHotel(hotel: IHotel): Observable<IHotel> {
+    return this.http.post<IHotel>(this.HOTEL_API_URL, hotel).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public updatehotel(hotel: IHotel): Observable<IHotel> {
+
+    const url = `${this.HOTEL_API_URL}/${hotel.id}` ;
+    return this.http.put<IHotel>(url, hotel).pipe(
+      catchError(this.handleError)
+    );
   }
 
   private getDefaultHotel(): IHotel {
     return {
-      hotelId: 0,
+      id: 0,
       hotelName: null,
       description: null,
       price: null,

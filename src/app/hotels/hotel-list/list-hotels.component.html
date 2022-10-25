@@ -22,17 +22,17 @@
   <section class="contentHotels">
     <div class="cartes-hotels" *ngFor= "let hotel of filteredHotels">
       <div class="contenerHotel">
-        <img [src]="hotel.hotelImageUrl" [title]="hotel.hotelName | uppercase" [alt]="hotel.hotelName" class="img-project">
+        <img [src]="hotel.imageUrl" [title]="hotel.hotelName | uppercase" [alt]="hotel.hotelName" class="img-project">
         <h3>{{ hotel.hotelName }}</h3>
-        <p>{{ hotel.hotelDescription }}</p>
+        <p>{{ hotel.description }}</p>
 
         <div class="d-flex justify-content-between align-items-baseline">
           <!-- <p class="card-text">{{ hotel.hotelPrice | currency: "EUR":"symbol":"1.2-2":"fr"| replaceComma }}</p> -->
           <app-star-rating [rating]="hotel.rating" (starRatingClicked)="receiveRatingClicked($event)"></app-star-rating>
-          <span class="material-icons bg-primary text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.hotelId, 'edit']">
+          <span class="material-icons bg-primary text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.id, 'edit']">
             edit
           </span>
-          <span class="material-icons bg-info text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.hotelId]">
+          <span class="material-icons bg-info text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.id]">
             keyboard_arrow_right
           </span>
 

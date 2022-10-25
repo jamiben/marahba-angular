@@ -1,6 +1,6 @@
 [
   {
-    "hotelId": 1,
+    "id": 1,
     "hotelName":"Thany",
     "hotelDescription":"lorem ipsum",
     "hotelImageUrl":"assets/img/thany.jpg",
@@ -9,7 +9,7 @@
 
   },
   {
-    "hotelId":2,
+    "id":2,
     "hotelName":"Marahba",
     "hotelDescription":"lorem ipsum",
     "hotelImageUrl":"assets/img/marhaba.jpg",
@@ -17,7 +17,7 @@
     "rating":5
   },
   {
-    "hotelId":3,
+    "id":3,
     "hotelName":"Lesehan",
     "hotelDescription":"lorem ipsum",
     "hotelImageUrl":"assets/img/lesehan-cahayah.png",
