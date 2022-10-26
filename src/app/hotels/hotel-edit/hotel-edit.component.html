@@ -11,9 +11,9 @@
         </div>
 
         <div class="form-group row mb-2">
-          <label for="hotelPriceId" class="col-md-2 col-form-label">Prix</label>
+          <label for="priceId" class="col-md-2 col-form-label">Prix</label>
           <div class="col-md-8">
-            <input id="hotelPriceId" type="text" class="form-control" placeholder="Prix(obligatoire)" formControlName="hotelPrice">
+            <input id="hpriceId" type="text" class="form-control" placeholder="Prix(obligatoire)" formControlName="price">
           </div>
         </div>
 
@@ -23,6 +23,22 @@
             <input id="starRatingId" type="text" class="form-control" placeholder="evaluation(1-5)" formControlName="starRating">
           </div>
         </div>
+
+        <div class="" formArrayName="tags">
+          <div class="form-group row mb-2" *ngFor="let tag of tags.controls; let i=index">
+            <label [attr.for]="i" class="col-md-2 col-form-label " >{{'Etiquette' + i }}</label>
+            <div class="col-md-8">
+              <input  type="text" [id]="i" placeholder="{{'Etiquette' + i }}" [formControlName]="i">
+            </div>
+            <button class="col-md-2 btn btn-outline-danger btn-sm" (click)="deleteTag(i)">supprimez</button>
+          </div>
+          <div class="row">
+            <div class="col-md-2 mb-2">
+              <button for="" class="btn btn-outline-primary btn-sm" (click)="addTags()">Ajoutez une étiquette</button>
+            </div>
+          </div>
+        </div>
+
 
         <div class="form-group row mb-2">
           <label for="description" class="col-md-2 col-form-label">Description</label>
@@ -35,7 +51,7 @@
           <div class="offset-md-2 col-md-4">
             <button class="btn btn-info " type="submit">sauvegarder</button>
             <button class="btn btn-outline-secondary mx-3" type="button" routerLink="/hotels">annuler</button>
-            <button class="btn btn-outline-danger " type="button">supprimer</button>
+            <button class="btn btn-outline-danger " type="button" [disabled]="hotel.id === 0" (click)="deleteHotel()">supprimer</button>
           </div>
         </div>
     </form>
