@@ -1,9 +1,10 @@
 import { identifierName } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IHotel } from '../shared/models/hotel';
 import { HotelListService } from '../shared/services/list-hotels.service';
+import { GlobalGenericValitator } from '../shared/validators/global-generic-validator';
 
 @Component({
   selector: 'app-hotel-edit',
@@ -11,7 +12,7 @@ import { HotelListService } from '../shared/services/list-hotels.service';
   styleUrls: ['./hotel-edit.component.css']
 })
 
-export class HotelEditComponent implements OnInit {
+export class HotelEditComponent implements OnInit, AfterViewInit {
 
   public hotelForm!: FormGroup;
 
@@ -21,7 +22,20 @@ export class HotelEditComponent implements OnInit {
 
   public errorMessage!: string;
 
+  public formErrors: { [key: string]: string} = {};
 
+
+  private validationMessages: { [key: string]: {[key: string]: string}} = {
+
+    hotelName: {
+      required: "the name of the hotel is required"
+    },
+    price: {
+      required: "the price is required"
+    }
+  }
+
+  private globalGenericValitator!: GlobalGenericValitator;
 
   constructor(
 
@@ -35,6 +49,7 @@ export class HotelEditComponent implements OnInit {
   ){ }
 
   ngOnInit(): void {
+    this.globalGenericValitator = new GlobalGenericValitator(this.validationMessages);
     this.hotelForm = this.fb.group({
       hotelName: ['', Validators.required],
       price: ['', Validators.required],
@@ -43,6 +58,7 @@ export class HotelEditComponent implements OnInit {
       tags: this.fb.array([])
     });
 
+
     this.route.paramMap.subscribe(params =>{
       const id = params.get('id');
       // console.log(id);
@@ -50,6 +66,13 @@ export class HotelEditComponent implements OnInit {
       if(id !== null) this.getSelectedHotel(parseInt(id));
     });
   }
+
+
+  ngAfterViewInit(): void {
+
+    this.formErrors = this.globalGenericValitator.createErrorMessages(this.hotelForm)
+  }
+
 
   public hideError(): void {
     this.errorMessage = '';
