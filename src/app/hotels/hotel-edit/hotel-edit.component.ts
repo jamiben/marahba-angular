@@ -10,8 +10,8 @@ import { HotelListService } from '../shared/services/list-hotels.service';
   templateUrl: './hotel-edit.component.html',
   styleUrls: ['./hotel-edit.component.css']
 })
-export class HotelEditComponent implements OnInit {
 
+export class HotelEditComponent implements OnInit {
 
   public hotelForm!: FormGroup;
 
@@ -19,9 +19,11 @@ export class HotelEditComponent implements OnInit {
 
   public pageTitle!: string;
 
+  public errorMessage!: string;
+
+
 
   constructor(
-
 
     private fb: FormBuilder,
 
@@ -30,7 +32,7 @@ export class HotelEditComponent implements OnInit {
     private hotelService: HotelListService,
 
     private router: Router,
-  ) { }
+  ){ }
 
   ngOnInit(): void {
     this.hotelForm = this.fb.group({
@@ -49,6 +51,10 @@ export class HotelEditComponent implements OnInit {
     });
   }
 
+  public hideError(): void {
+    this.errorMessage = '';
+  }
+
   public get tags(): FormArray {
     return this.hotelForm.get('tags') as FormArray;
   }
@@ -57,10 +63,10 @@ export class HotelEditComponent implements OnInit {
     this.tags.push(new FormControl());
   }
 
-public deleteTag(index: number): void {
-  this.tags.removeAt(index);
-  this.tags.markAsDirty();
-}
+  public deleteTag(index: number): void {
+    this.tags.removeAt(index);
+    this.tags.markAsDirty();
+  }
 
   public getSelectedHotel(id: number): void {
     this.hotelService.getHotelById(id).subscribe((hotel: IHotel) => {
@@ -84,6 +90,7 @@ public deleteTag(index: number): void {
       rating: this.hotel.rating,
       description: this.hotel.description,
     });
+    this.hotelForm.setControl('tags', this.fb.array(this.hotel.tags || []));
   }
 
   public saveHotel(): void {
@@ -97,11 +104,14 @@ public deleteTag(index: number): void {
 
       if(hotel.id === 0) {
         this.hotelService.createHotel(hotel).subscribe({
-          next: () => this.saveCompleted()
+          next: () => this.saveCompleted(),
+          error: (err) => this.errorMessage = err
+
         });
       }else {
         this.hotelService.updatehotel(hotel).subscribe({
-          next: () => this.saveCompleted()
+          next: () => this.saveCompleted(),
+          error: (err) => this.errorMessage = err
         });
       }
       }

@@ -1,6 +1,12 @@
+<ng-container *ngIf="errorMessage">
+  <div class="alert alert-danger d-flex align-items-center">
+    <span class="material-icons">error</span>
+      {{errorMessage}}
+    <span class="material-icons end-0" (click)="hideError()">close</span>
+  </div>
+</ng-container>
 <div class="card">
   <div class="card-header text-white bg-info">{{pageTitle}}</div>
-
   <div class="card-body">
     <form novalidate (ngSubmit)="saveHotel()" [formGroup]="hotelForm" action="">
         <div class="form-group row mb-2">
@@ -34,7 +40,7 @@
           </div>
           <div class="row">
             <div class="col-md-2 mb-2">
-              <button for="" class="btn btn-outline-primary btn-sm" (click)="addTags()">Ajoutez une étiquette</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addTags()">Ajoutez une étiquette</button>
             </div>
           </div>
         </div>
@@ -51,7 +57,7 @@
           <div class="offset-md-2 col-md-4">
             <button class="btn btn-info " type="submit">sauvegarder</button>
             <button class="btn btn-outline-secondary mx-3" type="button" routerLink="/hotels">annuler</button>
-            <button class="btn btn-outline-danger " type="button" [disabled]="hotel.id === 0" (click)="deleteHotel()">supprimer</button>
+            <button class="btn btn-outline-danger " type="button" [disabled]="hotel ?.id === 0" (click)="deleteHotel()">supprimer</button>
           </div>
         </div>
     </form>
