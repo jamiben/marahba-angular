@@ -3,7 +3,7 @@
   <h2 >{{ title }} </h2>
   <button class="btn btn-primary d-flex" (click)="toggleIsNewBadge()">
     <span class="material-icons">{{ showBadge ? "visibility_off" : "visibility" }}</span>
-    <span>{{ showBadge ? 'Cacher' : "Afficher"}} Afficher le dernier projet</span>
+    <span>{{ showBadge ? 'Cacher' : "Afficher"}} Afficher </span>
   </button>
   <div class="">
     <div>
@@ -27,7 +27,7 @@
         <p>{{ hotel.description }}</p>
 
         <div class="d-flex justify-content-between align-items-baseline">
-          <!-- <p class="card-text">{{ hotel.hotelPrice | currency: "EUR":"symbol":"1.2-2":"fr"| replaceComma }}</p> -->
+          <!-- <p class="card-text">{{ hotel.price | currency: "EUR":"symbol":"1.2-2":"fr"| replaceComma }}</p> -->
           <app-star-rating [rating]="hotel.rating" (starRatingClicked)="receiveRatingClicked($event)"></app-star-rating>
           <span class="material-icons bg-primary text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.id, 'edit']">
             edit
@@ -35,9 +35,12 @@
           <span class="material-icons bg-info text-white p-2 rounded-circle " [routerLink]="['/hotels', hotel.id]">
             keyboard_arrow_right
           </span>
-
         </div>
-        <span class="span" *ngIf="showBadge">Nouveau</span>
+        <ng-container *ngFor="let tag of hotel.tags; let i = index">
+          <ng-container *ngIf="showBadge">
+            <span class="badge span-vert" [ngClass]="i % 2 === 0 ? 'badge text-bg-info' : 'badge text-bg-success mx-2' ">{{tag}}</span>
+          </ng-container>
+        </ng-container>
       </div>
     </div>
   </section>
