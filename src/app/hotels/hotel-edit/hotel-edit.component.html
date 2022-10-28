@@ -12,7 +12,15 @@
         <div class="form-group row mb-2">
           <label for="hotelNameId" class="col-md-2 col-form-label">Nom hotel</label>
           <div class="col-md-8">
-            <input id="hotelNameId" type="text" class="form-control" placeholder="Nom(obligatoire)" formControlName="hotelName">
+            <input
+                id="hotelNameId"
+                type="text"
+                class="form-control"
+                placeholder="Nom(obligatoire)"
+                formControlName="hotelName"
+                [ngClass]="{'is-invalid': formErrors['hotelName']}"
+                >
+            <span class="invalid-feedback">{{formErrors['hotelName']}}</span>
           </div>
         </div>
 

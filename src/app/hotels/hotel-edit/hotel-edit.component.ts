@@ -25,6 +25,7 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
   public formErrors: { [key: string]: string} = {};
 
 
+
   private validationMessages: { [key: string]: {[key: string]: string}} = {
 
     hotelName: {
@@ -69,8 +70,10 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-
-    this.formErrors = this.globalGenericValitator.createErrorMessages(this.hotelForm)
+    this.hotelForm.valueChanges.subscribe(() =>{
+      this.formErrors = this.globalGenericValitator.createErrorMessages(this.hotelForm)
+    console.log('errors', this.formErrors);
+    });
   }
 
 
@@ -120,10 +123,14 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     if(this.hotelForm.valid) {
       if(this.hotelForm.dirty) {
 
+
         const hotel: IHotel = {
           ...this.hotel,
-          ...this.hotelForm.value
+          ...this.hotelForm.value,
+          id: this.genId()
         };
+console.log('function saveHotel: ', hotel)
+console.log('function id return: ', this.genId())
 
       if(hotel.id === 0) {
         this.hotelService.createHotel(hotel).subscribe({
@@ -141,6 +148,20 @@ export class HotelEditComponent implements OnInit, AfterViewInit {
     }
     console.log(this.hotelForm.value);
   }
+
+  public genId(): number {
+    let hotels = undefined;
+    let id=0;
+
+    this.hotelService.getHotels().subscribe(data => {
+      hotels=data;
+console.log('hotels genID: ', hotels)
+      id =hotels.length > 0 ? Math.max( ...hotels.map(hotel => hotel.id)) + 1 : 1;
+console.log('id', id);
+    })
+return id;
+  }
+
   public saveCompleted(): void {
     this.hotelForm.reset();
     this.router.navigate(['/hotels'])
