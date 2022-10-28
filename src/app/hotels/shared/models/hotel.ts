@@ -1,15 +1,28 @@
+
 export interface IHotel{
   id: number;
   hotelName: string;
   description: string;
   imageUrl: string;
-  hotelPrice: number;
+  price: number;
   rating: number;
+  tags ?: string[];
+
 }
 
-export class Hotel Implements IHotel {
+export class Hotel implements IHotel {
 
-  constructor{
+  constructor(
+    public id: number,
+    public  hotelName: string,
+    public  description: string,
+    public  imageUrl: string,
+    public  price: number,
+    public  rating: number,
+    public  tags: string[],
+  ){}
 
+  getNewPrice(price: number): number {
+    return price - 5;
   }
 }

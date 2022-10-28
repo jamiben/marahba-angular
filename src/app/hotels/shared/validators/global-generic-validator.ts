@@ -8,8 +8,8 @@ export class GlobalGenericValitator {
     private validatorMessages: { [key: string]: {[key: string]: string} }
   ){}
 
-  public createErrorMessage(container: FormGroup): { [key: string]: string } {
-    const errorMessages = {};
+  public createErrorMessages(container: FormGroup): { [key: string]: string } {
+    const errorMessages: any = {};
 
     for(const controlName in container.controls ) {
       if(container.controls.hasOwnProperty(controlName)) {
@@ -17,7 +17,7 @@ export class GlobalGenericValitator {
         const selectedcontrol = container.controls[controlName];
 
         if(this.validatorMessages[controlName]){
-          errorMessages[controlName] = " ";
+          errorMessages[controlName] = "";
 
           if((selectedcontrol.dirty || selectedcontrol.touched) && selectedcontrol.errors){
             Object.keys(selectedcontrol.errors).map((errorMessagesKey: string) => {
@@ -25,8 +25,7 @@ export class GlobalGenericValitator {
               if(this.validatorMessages[controlName][errorMessagesKey]){
                 errorMessages[controlName] += this.validatorMessages[controlName][errorMessagesKey] + ' '
               }
-
-            })
+            });
           }
         }
       }
